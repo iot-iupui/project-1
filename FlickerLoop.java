@@ -2,16 +2,14 @@ import com.pi4j.io.gpio.GpioPinDigitalOutput;
 import com.pi4j.io.gpio.event.GpioPinDigitalStateChangeEvent;
 import com.pi4j.io.gpio.event.GpioPinListenerDigital;
 
-public class FlickerLoop implements GpioPinListenerDigital, Runnable {
+public class FlickerLoop implements Runnable {
 
     GpioPinDigitalOutput pin;
     boolean buttonPress;
-    int even;
 
     public FlickerLoop(GpioPinDigitalOutput pin) {
         this.pin = pin;
         this.buttonPress = false;
-        int even = 0;
     }
 
     public void run() {
@@ -31,14 +29,5 @@ public class FlickerLoop implements GpioPinListenerDigital, Runnable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public void handleGpioPinDigitalStateChangeEvent(GpioPinDigitalStateChangeEvent gpioPinDigitalStateChangeEvent) {
-        if (even % 2 == 0){
-            this.buttonPress = true;
-        }
-        even++;
-        System.out.println("Pressed.\t Even: " + even);
     }
 }

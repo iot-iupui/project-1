@@ -11,8 +11,11 @@ class ToggleLightTest {
 
         button.setShutdownOptions(true);
         ledPinOut.setShutdownOptions(true, PinState.LOW);
+
         FlickerLoop flickerLoop = new FlickerLoop(ledPinOut);
-        button.addListener(flickerLoop);
+        HandlePress handlePress = new HandlePress(flickerLoop);
+
+        button.addListener(handlePress);
         new Thread(flickerLoop).start();
 
         while(true) {
