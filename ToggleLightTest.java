@@ -11,10 +11,9 @@ class ToggleLightTest {
 
         button.setShutdownOptions(true);
         ledPinOut.setShutdownOptions(true, PinState.LOW);
-
-        button.addListener((GpioPinListenerDigital) GpioPinDigitalStateChangeEvent -> {
-            ledPinOut.toggle();
-        });
+        FlickerLoop flickerLoop = new FlickerLoop(ledPinOut);
+        button.addListener(flickerLoop);
+        flickerLoop.runLightFrequency();
 
         while(true) {
             Thread.sleep(500);
