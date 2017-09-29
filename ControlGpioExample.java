@@ -88,7 +88,7 @@ public class ControlGpioExample {
 
     }
 
-    public static void runLightFrequency(GpioPinDigitalOutput pin) {
+    public static void runLightFrequency(GpioPinDigitalOutput pin) throws InterruptedException {
          pin.low();
          
          while(true){
