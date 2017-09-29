@@ -53,7 +53,7 @@ public class ControlGpioExample {
 
         // set shutdown state for this pin
         pin.setShutdownOptions(true, PinState.LOW);
-        runLightFrequency(pin);
+        //runLightFrequency(pin);
         // System.out.println("--> GPIO state should be: ON");
 
         // Thread.sleep(5000);
@@ -88,16 +88,4 @@ public class ControlGpioExample {
 
     }
 
-    public static void runLightFrequency(GpioPinDigitalOutput pin) throws InterruptedException {
-         pin.low();
-         
-         while(true){
-             for(int startingInterval = 1000; startingInterval > 0; startingInterval -= 150){
-                 for(int i = 0; i * startingInterval < 3000; i++){
-                    pin.toggle();
-                    Thread.sleep(startingInterval);
-                 }
-             }
-         }
-    }
 }

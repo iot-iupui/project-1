@@ -6,10 +6,12 @@ public class FlickerLoop implements GpioPinListenerDigital {
 
     GpioPinDigitalOutput pin;
     boolean buttonPress;
+    int even;
 
     public FlickerLoop(GpioPinDigitalOutput pin) {
         this.pin = pin;
         this.buttonPress = false;
+        int even = 0;
     }
 
     void runLightFrequency() throws InterruptedException {
@@ -19,11 +21,8 @@ public class FlickerLoop implements GpioPinListenerDigital {
                     pin.toggle();
                     Thread.sleep(startingInterval);
                     if(buttonPress){
-                        break;
+                        i--;
                     }
-                }
-                if(buttonPress){
-                    break;
                 }
             }
             buttonPress = false;
@@ -32,6 +31,9 @@ public class FlickerLoop implements GpioPinListenerDigital {
 
     @Override
     public void handleGpioPinDigitalStateChangeEvent(GpioPinDigitalStateChangeEvent gpioPinDigitalStateChangeEvent) {
-        this.buttonPress = true;
+        if (even % 2 == 0){
+            this.buttonPress = true;
+        }
+        even++;
     }
 }
