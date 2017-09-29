@@ -35,5 +35,6 @@ public class FlickerLoop implements GpioPinListenerDigital {
             this.buttonPress = true;
         }
         even++;
+        System.out.println("Pressed.\t Even: " + even);
     }
 }
