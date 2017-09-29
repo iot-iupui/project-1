@@ -13,7 +13,7 @@ class ToggleLightTest {
         ledPinOut.setShutdownOptions(true, PinState.LOW);
         FlickerLoop flickerLoop = new FlickerLoop(ledPinOut);
         button.addListener(flickerLoop);
-        flickerLoop.runLightFrequency();
+        new Thread(flickerLoop).start();
 
         while(true) {
             Thread.sleep(500);

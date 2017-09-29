@@ -2,7 +2,7 @@ import com.pi4j.io.gpio.GpioPinDigitalOutput;
 import com.pi4j.io.gpio.event.GpioPinDigitalStateChangeEvent;
 import com.pi4j.io.gpio.event.GpioPinListenerDigital;
 
-public class FlickerLoop implements GpioPinListenerDigital {
+public class FlickerLoop implements GpioPinListenerDigital, Runnable {
 
     GpioPinDigitalOutput pin;
     boolean buttonPress;
@@ -14,18 +14,22 @@ public class FlickerLoop implements GpioPinListenerDigital {
         int even = 0;
     }
 
-    void runLightFrequency() throws InterruptedException {
-        while (true) {
-            for (int startingInterval = 1000; startingInterval > 0; startingInterval -= 150) {
-                for (int i = 0; i * startingInterval < 3000; i++) {
-                    pin.toggle();
-                    Thread.sleep(startingInterval);
-                    if(buttonPress){
-                        i--;
+    public void run() {
+        try {
+            while (true) {
+                for (int startingInterval = 1000; startingInterval > 0; startingInterval -= 150) {
+                    for (int i = 0; i * startingInterval < 3000; i++) {
+                        pin.toggle();
+                        Thread.sleep(startingInterval);
+                        if (buttonPress) {
+                            i--;
+                        }
                     }
                 }
+                buttonPress = false;
             }
-            buttonPress = false;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
