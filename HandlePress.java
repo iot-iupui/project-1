@@ -12,7 +12,7 @@ public class HandlePress implements GpioPinListenerDigital {
     @Override
     public void handleGpioPinDigitalStateChangeEvent(GpioPinDigitalStateChangeEvent gpioPinDigitalStateChangeEvent) {
         if (gpioPinDigitalStateChangeEvent.getState().isHigh()){
-            this.flickerLoop.buttonPress = true;
+            this.flickerLoop.toggleButtonPress();
         }
         System.out.println("State Changed: " + gpioPinDigitalStateChangeEvent.getState().toString());
     }

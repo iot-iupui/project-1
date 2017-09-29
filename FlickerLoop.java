@@ -5,11 +5,10 @@ import com.pi4j.io.gpio.event.GpioPinListenerDigital;
 public class FlickerLoop implements Runnable {
 
     GpioPinDigitalOutput pin;
-    boolean buttonPress;
+    private boolean buttonPress = false;
 
     public FlickerLoop(GpioPinDigitalOutput pin) {
         this.pin = pin;
-        this.buttonPress = false;
     }
 
     public void run() {
@@ -24,10 +23,13 @@ public class FlickerLoop implements Runnable {
                         }
                     }
                 }
-                buttonPress = false;
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void toggleButtonPress() {
+        this.buttonPress = !buttonPress;
     }
 }
