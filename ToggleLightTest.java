@@ -16,7 +16,7 @@ class ToggleLightTest {
         HandlePress handlePress = new HandlePress(flickerLoop);
 
         button.addListener(handlePress);
-        new Thread(flickerLoop).start();
+        //new Thread(flickerLoop).start();
 
         while(true) {
             Thread.sleep(500);
