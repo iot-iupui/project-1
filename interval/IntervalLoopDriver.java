@@ -1,8 +1,7 @@
 package interval;
 
 import com.pi4j.io.gpio.*;
-import interval.FlickerLoop;
-import interval.HandlePress;
+import com.pi4j.io.gpio.event.GpioPinListenerDigital;
 
 class IntervalLoopDriver {
     public static void main (String... args) throws InterruptedException {
@@ -15,7 +14,7 @@ class IntervalLoopDriver {
         ledPinOut.setShutdownOptions(true, PinState.LOW);
 
         FlickerLoop flickerLoop = new FlickerLoop(ledPinOut);
-        HandlePress handlePress = new HandlePress(flickerLoop);
+        GpioPinListenerDigital handlePress = new HandleBrightness(flickerLoop);
 
         button.addListener(handlePress);
         new Thread(flickerLoop).start();
