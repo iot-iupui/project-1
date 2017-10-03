@@ -47,7 +47,7 @@ import com.pi4j.io.gpio.trigger.GpioSyncStateTrigger;
  *
  * @author Robert Savage
  */
-public class TriggerGpioExample {
+public class DepTriggerGpioExample {
 
     public static void main(String[] args) throws InterruptedException {
 
