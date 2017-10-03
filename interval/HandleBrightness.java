@@ -3,19 +3,21 @@ package interval;
 import com.pi4j.io.gpio.event.GpioPinDigitalStateChangeEvent;
 import com.pi4j.io.gpio.event.GpioPinListenerDigital;
 
-public class HandlePress implements GpioPinListenerDigital {
+public class HandleBrightness implements GpioPinListenerDigital {
 
     FlickerLoop flickerLoop;
+    int[] intensities = {100, 66, 33};
+    int counter = 0;
 
-    public HandlePress(FlickerLoop flickerLoop) {
+    public HandleBrightness(FlickerLoop flickerLoop) {
         this.flickerLoop = flickerLoop;
     }
 
     @Override
     public void handleGpioPinDigitalStateChangeEvent(GpioPinDigitalStateChangeEvent gpioPinDigitalStateChangeEvent) {
         if (gpioPinDigitalStateChangeEvent.getState().isHigh()){
-            this.flickerLoop.toggleButtonPress();
+            this.flickerLoop.setIntensity(intensities[counter++ % 3]);
         }
-        System.out.println("State Changed: " + gpioPinDigitalStateChangeEvent.getState().toString());
+        System.out.println("HandleBrightness State Changed: " + gpioPinDigitalStateChangeEvent.getState().toString());
     }
 }
