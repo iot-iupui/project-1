@@ -1,7 +1,6 @@
 package interval;
 
 import com.pi4j.io.gpio.GpioPinDigitalOutput;
-import com.pi4j.wiringpi.Gpio;
 import com.pi4j.wiringpi.SoftPwm;
 
 public class FlickerLoop implements Runnable {
