@@ -1,0 +1,65 @@
+in the flicker loop could approach this in one of a few ways.
+
+1. 2 flicker loops in handlepress method
+    - handlepress holds 2 flickerloops objects
+    - button 2 has a custom handlepress which has the ability to 
+      modify a boolean in the other handlepress object which
+      is checked in the handleGpioPinDigitalStateChangeEvent function 
+      and switches out the current flicker loop 
+    - when button 2 press is detected, the handlepress object 
+      should modify a boolean in the current flickerloop object which
+      should be caught in the active flickerloop body which simply 
+      does short sleeps in a loop while checking the boolean
+
+    - flickerloops must be able to sleep
+
+2. button 2 triggers a swap in the flickerloop which changes the 
+    pin that is being toggled
+    - button 2 needs custom handle press that watches second button 
+      only
+
+    -  flickerloop takes 2 pins
+    - both pins are connected to same light.
+    - pin.toggle() must be switched to pin.pulse() because pulse 
+      will result in a shut off state automatically
+
+    public class FlickerLoop implements Runnable {
+
+    GpioPinDigitalOutput pin1;
+    GpioPinDigitalOutput pin2;
+    private boolean buttonPress = false;
+    private boolean pwm_active  = false;
+
+    public FlickerLoop(GpioPinDigitalOutput pin1, GpioPinDigitalOutput pin2) {
+        this.pin1 = pin1;
+        this.pin2 = pin2; 
+    }
+
+    public void run() {
+        try {
+            while (true) {
+                for (int startingInterval = 1000; startingInterval > 0; startingInterval -= 150) {
+                    for (int i = 0; i * startingInterval < 3000; i++) {
+                        if (pwm_active) {
+                            SoftPwm.softPwmWrite(PIN_NUMBER, startingInterval / 10);
+                            pin2.pulse(startingInterval, true);
+                        }
+                        else {
+                            pin1.pulse(startingInterval, true);
+                        }
+                        Thread.sleep(startingInterval);
+                        if (buttonPress) {
+                            i--;
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void toggleButtonPress() {
+        this.buttonPress = !buttonPress;
+    }
+}
