@@ -1,8 +1,10 @@
-import com.pi4j.io.gpio.*;
-import com.pi4j.io.gpio.event.GpioPinDigitalStateChangeEvent;
-import com.pi4j.io.gpio.event.GpioPinListenerDigital;
+package interval;
 
-class ToggleLightTest {
+import com.pi4j.io.gpio.*;
+import interval.FlickerLoop;
+import interval.HandlePress;
+
+class IntervalLoopDriver {
     public static void main (String... args) throws InterruptedException {
         final GpioController gpio = GpioFactory.getInstance();
 
