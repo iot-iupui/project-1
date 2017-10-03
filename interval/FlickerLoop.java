@@ -11,7 +11,7 @@ public class FlickerLoop implements Runnable {
     private int intensity = 100;
 
     public FlickerLoop(GpioPinDigitalOutput pin) {
-        Gpio.wiringPiSetup();
+        //Gpio.wiringPiSetup();
         SoftPwm.softPwmCreate(pin.getPin().getAddress(), 0, 100);
         this.pin = pin;
     }
