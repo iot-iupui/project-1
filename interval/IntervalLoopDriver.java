@@ -8,15 +8,17 @@ class IntervalLoopDriver {
         final GpioController gpio = GpioFactory.getInstance();
 
         final GpioPinDigitalOutput ledPinOut = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_01, "LED_OUT", PinState.LOW);
-        final GpioPinDigitalInput button = gpio.provisionDigitalInputPin(RaspiPin.GPIO_02, PinPullResistance.PULL_DOWN);
+        final GpioPinDigitalInput buttonA = gpio.provisionDigitalInputPin(RaspiPin.GPIO_02, PinPullResistance.PULL_DOWN);
+        final GpioPinDigitalInput buttonB = gpio.provisionDigitalInputPin(RaspiPin.GPIO_03, PinPullResistance.PULL_DOWN);
 
-        button.setShutdownOptions(true);
+        buttonA.setShutdownOptions(true);
+        buttonB.setShutdownOptions(true);
         ledPinOut.setShutdownOptions(true, PinState.LOW);
 
         FlickerLoop flickerLoop = new FlickerLoop(ledPinOut);
-        GpioPinListenerDigital handlePress = new HandleBrightness(flickerLoop);
+        GpioPinListenerDigital handlePress = new HandleSwitch(flickerLoop, buttonA);
 
-        button.addListener(handlePress);
+        buttonB.addListener(handlePress);
         new Thread(flickerLoop).start();
 
         while(true) {
