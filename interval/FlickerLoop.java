@@ -23,7 +23,7 @@ public class FlickerLoop implements Runnable {
                     for (int i = 0; i * startingInterval < 3000; i++) {
                         for (int j = 0; j < intensity; j++) {
                             SoftPwm.softPwmWrite(pin.getPin().getAddress(), i);
-                            Thread.sleep(1);
+                            Thread.sleep(25);
                         }
                         SoftPwm.softPwmWrite(pin.getPin().getAddress(), intensity);
                         Thread.sleep(startingInterval);
@@ -31,7 +31,7 @@ public class FlickerLoop implements Runnable {
 
                         for (int j = intensity; j >= 0; j--) {
                             SoftPwm.softPwmWrite(pin.getPin().getAddress(), i);
-                            Thread.sleep(1);
+                            Thread.sleep(25);
                         }
                         SoftPwm.softPwmWrite(pin.getPin().getAddress(), 0);
 
