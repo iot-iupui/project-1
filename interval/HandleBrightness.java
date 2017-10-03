@@ -6,7 +6,7 @@ import com.pi4j.io.gpio.event.GpioPinListenerDigital;
 public class HandleBrightness implements GpioPinListenerDigital {
 
     FlickerLoop flickerLoop;
-    int[] intensities = {100, 66, 33};
+    int[] intensities = {25, 6, 100};
     int counter = 0;
 
     public HandleBrightness(FlickerLoop flickerLoop) {
