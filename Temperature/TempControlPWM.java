@@ -13,6 +13,11 @@ import com.pi4j.util.Console;
  * which uses the temperature sensed to dictate the pwm interval.
  * This has the effect of brightening and dimming the LED as the temp
  * increases and decreases respectively. 
+ * 
+ * CITATIONS
+ * https://github.com/Pi4J/pi4j/blob/master/pi4j-example/src/main/java/W1TempExample.java
+ * https://www.youtube.com/watch?v=ea1dT-SqQ4Q
+ * https://github.com/Pi4J/pi4j/blob/master/pi4j-example/src/main/java/PwmExample.java
  */
 public class TempControlPWM {
 
